@@ -1,6 +1,8 @@
+<%= render 'static_pages/home' unless user_signed_in? %>
+
 <h1>Listing properties</h1>
 <% if user_signed_in? %>
-  <%= link_to 'New Property', new_property_path, class: "btn btn-primary btn-success" %>
+  <%= link_to 'Enter in your house', new_property_path, class: "btn btn-primary btn-success" %>
 <% end %>
 <br>
 <br>
@@ -8,17 +10,24 @@
 <div id="properties" class="transitions-enabled">
   <% @properties.each do |property| %>
     <div class="box panel panel-default">
-      <%= image_tag property.image.url(:medium) %>
+      <%= link_to image_tag(property.image.url(:medium)), property %>
       <div class="panel-body">
-        <%= property.title %>
-        <%= property.price %>
-        <%= property.landlord_rating %>
-        <%= property.additional %>
-        <%= property.user.email if property.user %>
-        <%= link_to 'Show', property_path(property) %>
+        <%= property.title %><br>
+        <%= property.price %> per month<br> 
+        Landlord: <%= property.landlord_rating %> out of 10<br>
+        Comments: <%= property.additional %><br>
+        <strong><%= property.user.email if property.user %></strong>
         <% if property.user == current_user %>
-          <%= link_to 'Edit', edit_property_path(property) %>
-          <%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <div class="actions">
+            <%= link_to edit_property_path(property) do %>
+              <span class="glyphicon glyphicon-edit"></span>
+              Edit
+            <% end %>
+            <%= link_to property, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+              Delete
+            <% end %>
+        </div>
         <% end %>
       </div>
       </div>
