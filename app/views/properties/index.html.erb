@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>User</th>
       <th>Title</th>
       <th>Price</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @properties.each do |property| %>
     <tr>
+      <td><%= image_tag property.image.url(:medium) %></td>
       <td><%= property.user.email %></td>
       <td><%= property.title %></td>
       <td><%= property.price %></td>
