@@ -1,40 +1,26 @@
 <h1>Listing properties</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>User</th>
-      <th>Title</th>
-      <th>Price</th>
-      <th>Landlord rating</th>
-      <th>Additional</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @properties.each do |property| %>
-    <tr>
-      <td><%= image_tag property.image.url(:medium) %></td>
-      <td><%= property.user.email %></td>
-      <td><%= property.title %></td>
-      <td><%= property.price %></td>
-      <td><%= property.landlord_rating %></td>
-      <td><%= property.additional %></td>
-      <td><%= link_to 'Show', property %></td>
-      <% if property.user == current_user %>
-      <td><%= link_to 'Edit', edit_property_path(property) %></td>
-      <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br />
 <% if user_signed_in? %>
-  <%= link_to 'New Property', new_property_path %>
+  <%= link_to 'New Property', new_property_path, class: "btn btn-primary btn-success" %>
 <% end %>
+<br>
+<br>
+<br>
+<div id="properties" class="transitions-enabled">
+  <% @properties.each do |property| %>
+    <div class="box panel panel-default">
+      <%= image_tag property.image.url(:medium) %>
+      <div class="panel-body">
+        <%= property.title %>
+        <%= property.price %>
+        <%= property.landlord_rating %>
+        <%= property.additional %>
+        <%= property.user.email if property.user %>
+        <%= link_to 'Show', property_path(property) %>
+        <% if property.user == current_user %>
+          <%= link_to 'Edit', edit_property_path(property) %>
+          <%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </div>
+      </div>
+  <% end %>
+</div>
