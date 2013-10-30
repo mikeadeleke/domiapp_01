@@ -24,4 +24,5 @@ SampleApp::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
+  Paperclip.options[:image_magick_path] = '/path/to/your/image_magick'
 end

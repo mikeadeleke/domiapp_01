@@ -12,9 +12,11 @@ class PropertiesController < ApplicationController
 
   def new
     @property = current_user.properties.build
+    5.times { @property.assets.build }
   end
 
   def edit
+    5.times { @property.assets.build }
   end
 
   def create

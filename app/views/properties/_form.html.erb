@@ -31,6 +31,30 @@
     <%= f.label :additional %><br />
     <%= f.text_area :additional %>
   </div>
+  
+  <div class="table">
+    <%= f.fields_for :assets do |asset| %>
+        
+           <% if asset.object.new_record? %>
+                 <%= asset.file_field :image %>
+           <% end %>
+
+       <% end %>
+  </div>
+  <div class="paperclipstuff">
+    <% f.fields_for :assets do |asset| %>
+        
+          <% unless asset.object.new_record? %>
+        
+                <div class="thumbnail">
+                        <%= link_to( image_tag(asset.object.image.url(:thumb)), asset.object.image.url(:original) ) %>
+                        <%= asset.check_box :_delete %>
+                </div>
+                
+          <% end %>        
+        
+     <% end %>
+  </div>
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
   </div>
